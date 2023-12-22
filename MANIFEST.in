@@ -1,4 +1,4 @@
 include *.md
 include requirements.txt
 include LICENSE
-recursive-include scissor
+recursive-include scissors *.py
