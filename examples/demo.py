@@ -8,4 +8,5 @@ def main(file_name):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('
+    parser.add_argument('file_name', help='you, enter it')
+    args
