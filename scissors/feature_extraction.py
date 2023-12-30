@@ -67,3 +67,48 @@ class StaticExtractor:
 
         self.std = std
         self.maximum_cost = maximum_cost
+        self.laplace_w = laplace_w * maximum_cost
+        self.direction_w = direction_w * maximum_cost
+
+        self.laplace_weights = laplace_weights or default_params['laplace_weights']
+        self.laplace_kernels = laplace_kernels or default_params['laplace_kernels']
+
+        assert len(self.laplace_weights) == len(self.laplace_kernels), \
+            "Sequences must have equal length."
+
+    def __call__(self, image: np.array, brightness: np.array) -> np.array:
+        # calculate laplace cost
+        l_cost = self.get_laplace_cost(image)
+        l_cost = unfold(l_cost)
+        l_cost = np.ceil(self.laplace_w * l_cost)
+        # calculate direction costs
+        d_cost = self.get_direction_cost(brightness)
+        d_cost = np.ceil(self.direction_w * d_cost)
+        # calculate total static cost
+        total_cost = np.squeeze(l_cost + d_cost)
+        return total_cost
+
+    def get_laplace_cost(self, image: np.array) -> np.array:
+        n_channels, *shape = image.shape
+        total_cost = np.zeros((n_channels,) + tuple(shape))
+
+        # smooth image
+        image = gaussian(image, self.std)
+        # calculate zero crossings for each kernel and channel
+        for i, channel in enumerate(image):
+            for laplace_kernel, w in zip(self.laplace_kernels, self.laplace_weights):
+                total_cost[i] = w * self.calculate_single_laplace_cost(channel, laplace_kernel)
+
+        # maximize over the channels
+        total_cost = np.max(total_cost, axis=0, keepdims=True)
+        return total_cost
+
+    @staticmethod
+    def calculate_single_laplace_cost(image: np.array, laplace_kernel_sz: int) -> np.array:
+        laplace_map = laplace(image, ksize=laplace_kernel_sz)
+        laplace_map = laplace_map[None]
+        # create map of neighbouring pixels costs
+        cost_map = unfold(laplace_map)
+        cost_map = flatten_first_dims(np.squeeze(cost_map))
+        # leave only direct neighbours
+        cost_map = cost_map[[1, 3, 5, 7], :, :]
