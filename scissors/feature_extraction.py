@@ -153,3 +153,43 @@ class CostProcessor:
         image: np.array
             input image
         hist_std : float
+            size of gaussian kernel used for smoothing dynamic histograms
+        image_std: float
+            size of gaussian kernel used for smoothing the image
+        distance_value : int
+            distance for inner/outer pixels
+        n_image_values : int
+            defines a possible range of values of dynamic features
+        magnitude_w : float
+            weight of gradient magnitude features
+        inner_w : float
+            weight of inner features
+        outer_w : float
+            weight of outer features
+        local_w : float
+            weight of local features
+        maximum_cost : int
+            specifies the largest possible integer cost
+        """
+
+        inner_w = inner_w or default_params['inner']
+        outer_w = outer_w or default_params['outer']
+        hist_std = hist_std or default_params['hist_std']
+        image_std = image_std or default_params['image_std']
+        distance_value = distance_value or default_params['distance_value']
+
+        n_image_values = n_image_values or default_params['n_image_values']
+        n_magnitude_values = n_magnitude_values or default_params['n_magnitude_values']
+
+        local_w = local_w or default_params['local']
+        magnitude_w = magnitude_w or default_params['magnitude']
+        maximum_cost = maximum_cost or default_params['maximum_cost']
+
+        self.inner_weight = inner_w * maximum_cost
+        self.outer_weight = outer_w * maximum_cost
+        self.local_weight = local_w * maximum_cost
+        self.magnitude_weight = magnitude_w * maximum_cost
+
+        self.hist_std = hist_std
+        self.n_image_values = n_image_values
+        self.n_magnitude_values = n_magnitude_values
