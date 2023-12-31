@@ -112,3 +112,44 @@ class StaticExtractor:
         cost_map = flatten_first_dims(np.squeeze(cost_map))
         # leave only direct neighbours
         cost_map = cost_map[[1, 3, 5, 7], :, :]
+        # get max elements with the opposite sign
+        signs = np.sign(laplace_map)
+        opposites = cost_map * (cost_map * signs < 0)
+        opposites = np.max(np.abs(opposites), axis=0)
+        output = np.abs(laplace_map) > opposites
+        return output
+
+    @staticmethod
+    def get_direction_cost(image: np.array, eps=1e-6) -> np.array:
+        # calculate vectors perpendicular to gradients
+        grads = np.stack([sobel_v(image), -sobel_h(image)])
+        grads /= (np.linalg.norm(grads, axis=0) + eps)
+
+        unfolded_grads = unfold(grads)
+        grads = grads[:, None, None, ...]
+
+        # calculate dot products
+        spatial_feats = create_spatial_feats(image.shape)
+        link_feats = np.einsum('i..., i...', spatial_feats, grads)
+        # get d_p features
+        local_feats = np.abs(link_feats)
+        # get d_q features
+        sign_mask = np.sign(link_feats)
+        distant_feats = sign_mask * np.einsum('i..., i...', spatial_feats, unfolded_grads)
+        # calculate total gradient direction cost
+        total_cost = 2 / (3 * np.pi) * (np.arccos(local_feats) + np.arccos(distant_feats))
+        return total_cost
+
+
+class CostProcessor:
+    def __init__(self, image: np.array, brightness: np.array, hist_std=None, image_std=None, distance_value=None,
+                 n_image_values=None, n_magnitude_values=None, magnitude_w=None, inner_w=None, outer_w=None,
+                 local_w=None, maximum_cost=None):
+        """
+        Class for computing dynamic features.
+
+        Parameters
+        ----------
+        image: np.array
+            input image
+        hist_std : float
