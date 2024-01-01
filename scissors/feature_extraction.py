@@ -193,3 +193,52 @@ class CostProcessor:
         self.hist_std = hist_std
         self.n_image_values = n_image_values
         self.n_magnitude_values = n_magnitude_values
+
+        self.brightness = brightness
+        self.magnitude_feats = self.get_magnitude_features(image, n_magnitude_values, image_std)
+
+        smoothed = gaussian(brightness, image_std)
+        self.local_feats = self.get_direct_pixel_feats(smoothed, n_image_values)
+        self.inner_feats, self.outer_feats = self.get_externals_pixel_feats(smoothed, n_image_values, distance_value)
+
+    def __call__(self, series: Sequence[tuple]) -> np.array:
+        return self.compute_dynamic_cost(series)
+
+    def compute_dynamic_cost(self, series: Sequence[tuple]) -> np.array:
+        # calculate histograms
+        local_hist = self.get_hist(
+            series, self.local_feats, self.local_weight,
+            self.n_image_values, self.hist_std
+        )
+        inner_hist = self.get_hist(
+            series, self.inner_feats, self.inner_weight,
+            self.n_image_values, self.hist_std
+        )
+        outer_hist = self.get_hist(
+            series, self.outer_feats, self.outer_weight,
+            self.n_image_values, self.hist_std
+        )
+        magnitude_hist = self.get_hist(
+            series, self.magnitude_feats, self.magnitude_weight,
+            self.n_magnitude_values, self.hist_std
+        )
+        # calculate dynamic costs
+        local_cost = local_hist[self.local_feats]
+        inner_cost = inner_hist[self.inner_feats]
+        outer_cost = outer_hist[self.outer_feats]
+
+        magnitude_cost = magnitude_hist[self.magnitude_feats]
+        neighbour_weights = np.array([
+            [1, 0.707, 1],
+            [0.707, 1, 0.707],
+            [1, 0.707, 1]])
+
+        neighbour_weights = neighbour_weights[None, :, :, None, None]
+        magnitude_cost = (neighbour_weights * magnitude_cost)
+
+        total_cost = (magnitude_cost + local_cost + inner_cost + outer_cost)
+        total_cost = total_cost.squeeze(0).astype(np.int)
+        return total_cost
+
+    @staticmethod
+    def get_hist(series: Sequence[tuple], feats: np.array, weight: float, n_values: int, std: int):
