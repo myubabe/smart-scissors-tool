@@ -291,3 +291,45 @@ class CostProcessor:
         grads = np.zeros((n_channels,) + tuple(shape))
 
         # process each RGB channel
+        for i, channel in enumerate(image):
+            channel = gaussian(channel, std)
+            grads[i] = sobel(channel)
+
+        # choose maximum over the channels
+        grads = np.max(grads, axis=0, keepdims=True)
+        grads = grads - np.min(grads)
+
+        cost = 1 - grads / np.max(grads)
+        cost = np.ceil((n_values - 1) * cost).astype(np.int)
+        cost = unfold(cost).astype(int)
+        return cost
+
+
+class Scissors:
+    def __init__(self, image: np.array, capacity=None, use_dynamic_features=True):
+        """
+        Parameters
+        ----------
+        image : np.array
+            array of shape (3, 3, height, width)
+        capacity : int
+            number of last pixels used for dynamic cost calculation
+        """
+
+        image, brightness = preprocess_image(image)
+        static_extractor = StaticExtractor()
+        static_cost = static_extractor(image, brightness)
+
+        self.static_cost = static_cost.astype(np.int)
+        self.maximum_cost = static_extractor.maximum_cost
+        self.capacity = capacity or default_params['history_capacity']
+
+        self.current_dynamic_cost = None
+        self.processor = CostProcessor(image, brightness) if use_dynamic_features else lambda x: None
+
+        self.grads_map = sobel(brightness)
+        self.processed_pixels = list()
+
+    def find_path(self, seed_x: int, seed_y: int, free_x: int, free_y: int) -> Sequence[tuple]:
+        if len(self.processed_pixels) != 0:
+            self.current_dynamic_cost = self.processor(self.processed_pixels)
