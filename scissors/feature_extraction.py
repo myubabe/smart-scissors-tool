@@ -242,3 +242,52 @@ class CostProcessor:
 
     @staticmethod
     def get_hist(series: Sequence[tuple], feats: np.array, weight: float, n_values: int, std: int):
+        hist = np.zeros(n_values)
+        for i, idx in enumerate(series):
+            y, x = idx
+            hist[feats[:, 1, 1, y, x]] += quadratic_kernel(i, len(series))
+
+        hist = gaussian_filter1d(hist, std)
+        hist = np.ceil(weight * (1 - hist / np.max(hist)))
+        return hist
+
+    @staticmethod
+    def get_direct_pixel_feats(image: np.array, n_values: int) -> np.array:
+        local_feats = image / np.max(image)
+        local_feats = np.ceil((n_values - 1) * local_feats).astype(np.int)
+        local_feats = unfold(local_feats[None]).astype(np.int)
+        return local_feats
+
+    @staticmethod
+    def get_externals_pixel_feats(image: np.array, n_values: int, k_distance: int, eps=1e-4) -> np.array:
+        h, w = image.shape
+        grads_map = np.array([sobel_h(image), sobel_v(image)])
+        grads_map = grads_map / (np.linalg.norm(grads_map, axis=0) + eps)
+
+        def get_shifted_feats(directions):
+            shifts = np.round(directions * k_distance).astype(np.int)
+            grid = np.stack(np.meshgrid(np.arange(h), np.arange(w), indexing='ij'))
+
+            # calculate coords of inner/outer pixels
+            coords = grid + shifts
+            # clip values
+            coords[coords < 0] = 0
+            coords[:, :, -k_distance:] = np.clip(coords[:, :, -k_distance:], 0, w - 1)
+            coords[:, -k_distance:, :] = np.clip(coords[:, -k_distance:, :], 0, h - 1)
+            # get required pixels
+            feats = image[coords[0].reshape(-1), coords[1].reshape(-1)].reshape(h, w)
+            feats = feats / (np.max(feats) + eps)
+            feats = np.ceil((n_values - 1) * feats)
+            feats = unfold(feats[None]).astype(np.int)
+            return feats
+
+        outer_feats = get_shifted_feats(grads_map)
+        inner_feats = get_shifted_feats(-grads_map)
+        return inner_feats, outer_feats
+
+    @staticmethod
+    def get_magnitude_features(image: np.array, n_values: int, std: int) -> np.array:
+        n_channels, *shape = image.shape
+        grads = np.zeros((n_channels,) + tuple(shape))
+
+        # process each RGB channel
