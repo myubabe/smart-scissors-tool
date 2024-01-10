@@ -78,3 +78,55 @@ class PixelsView(View):
 
 class PolyView(View):
     def __init__(self, model, draw_lines=False, fill_color="red", radius=3):
+        super().__init__(model)
+
+        self.radius = radius
+        self.fill_color = fill_color
+        self.draw_lines = draw_lines
+
+    def update(self):
+        points = self.model.points
+
+        if self.draw_lines:
+            for previous, current in zip(points, points[1:]):
+                self.canvas.create_line(*previous, *current, fill=self.fill_color)
+
+        for p in points:
+            self.canvas.create_oval(
+                p[0] - self.radius, p[1] - self.radius,
+                p[0] + self.radius, p[1] + self.radius,
+                fill=self.fill_color
+            )
+
+
+class GuiManager:
+    def __init__(self, canvas, scissors):
+        self.canvas = canvas
+        self.scissors = scissors
+
+        self.pixel_model = Pixels(self.canvas)
+        self.pixel_view = PixelsView(self.pixel_model)
+        self.pixel_model.add_view(self.pixel_view)
+
+        self.poly_model = Poly(self.canvas)
+        self.poly_view = PolyView(self.poly_model)
+        self.poly_model.add_view(self.poly_view)
+
+        self.c = PolyController(self.poly_model)
+        self.prev_click = None
+        self.cur_click = None
+
+    def on_click(self, e):
+        self.prev_click = self.cur_click
+        self.cur_click = (e.y, e.x)
+
+        new_circle_coords = (e.x, e.y)
+        if self.prev_click is not None:
+            seed_y, seed_x = self.prev_click
+            free_y, free_x = self.cur_click
+
+            path = self.scissors.find_path(seed_x, seed_y, free_x, free_y)
+            path = [np.flip(x) for x in path]
+
+            self.pixel_model.add_pixels(path)
+            new_circle_coords = path[0]
