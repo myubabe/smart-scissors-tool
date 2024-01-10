@@ -333,3 +333,38 @@ class Scissors:
     def find_path(self, seed_x: int, seed_y: int, free_x: int, free_y: int) -> Sequence[tuple]:
         if len(self.processed_pixels) != 0:
             self.current_dynamic_cost = self.processor(self.processed_pixels)
+
+        free_x, free_y = self.get_cursor_snap_point(free_x, free_y, self.grads_map)
+        path = self.calculate_segment(
+            seed_x, seed_y, free_x, free_y,
+            self.maximum_cost, self.current_dynamic_cost, self.static_cost
+        )
+        self.processed_pixels.extend(reversed(path))
+        if len(self.processed_pixels) > self.capacity:
+            self.processed_pixels = self.processed_pixels[-self.capacity:]
+        return path
+
+    @staticmethod
+    def calculate_segment(seed_x: int, seed_y: int, free_x: int, free_y: int, maximum_cost: int,
+                          dynamic_cost: Union[np.array, None], static_cost: np.array) -> Sequence[tuple]:
+        h, w = static_cost.shape[2:]
+        if dynamic_cost is None:
+            dynamic_cost = np.zeros((3, 3, h, w), dtype=np.int)
+
+        node_map = search(static_cost, dynamic_cost, w, h, seed_x, seed_y, maximum_cost)
+        cur_x, cur_y = node_map[:, free_x, free_y]
+
+        history = []
+        while (cur_x, cur_y) != (seed_x, seed_y):
+            history.append((cur_y, cur_x))
+            cur_x, cur_y = node_map[:, cur_x, cur_y]
+        return history
+
+    @staticmethod
+    def get_cursor_snap_point(x: int, y: int, grads: np.array, snap_scale: int = 3):
+        region = grads[y - snap_scale:y + snap_scale, x - snap_scale:x + snap_scale]
+
+        max_grad_idx = np.unravel_index(region.argmax(), region.shape)
+        max_grad_idx = np.array(max_grad_idx)
+        y, x = max_grad_idx + np.array([y - snap_scale, x - snap_scale])
+        return x, y
