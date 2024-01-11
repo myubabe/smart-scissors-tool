@@ -1,2 +1,4 @@
 # distutils: language = c++
-import cyt
+import cython
+import numpy as np
+from libcpp.vector c
