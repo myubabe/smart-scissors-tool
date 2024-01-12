@@ -11,3 +11,7 @@ cdef struct Node:
     int expanded
 
     int total_cost
+    int has_infinite_cost
+
+    Node* next
+ 
