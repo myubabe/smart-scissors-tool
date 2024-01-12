@@ -14,4 +14,7 @@ cdef struct Node:
     int has_infinite_cost
 
     Node* next
- 
+    Node* prev
+
+cdef struct List:
+    int size
