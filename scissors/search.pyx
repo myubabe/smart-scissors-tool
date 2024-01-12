@@ -7,4 +7,7 @@ from libcpp.vector cimport vector
 cdef struct Node:
     int x
     int y
- 
+    int active
+    int expanded
+
+    int total_cost
