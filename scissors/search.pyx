@@ -20,4 +20,6 @@ cdef struct List:
     int size
     Node* tail
 
-cdef void list_push(Node* node, Li
+cdef void list_push(Node* node, List* lst):
+    if lst[0].tail != NULL:
+        lst[0].tai
