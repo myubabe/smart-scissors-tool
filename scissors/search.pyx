@@ -18,3 +18,6 @@ cdef struct Node:
 
 cdef struct List:
     int size
+    Node* tail
+
+cdef void list_push(Node* node, Li
