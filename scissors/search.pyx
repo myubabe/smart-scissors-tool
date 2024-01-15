@@ -26,4 +26,7 @@ cdef void list_push(Node* node, List* lst):
         node[0].prev = lst[0].tail
 
     lst[0].tail = node
-    node[0].active =
+    node[0].active = True
+    lst[0].size+=1
+
+cdef void list_r
