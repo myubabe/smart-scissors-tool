@@ -23,4 +23,7 @@ cdef struct List:
 cdef void list_push(Node* node, List* lst):
     if lst[0].tail != NULL:
         lst[0].tail[0].next = node
-        node[0].prev = lst[0
+        node[0].prev = lst[0].tail
+
+    lst[0].tail = node
+    node[0].active =
