@@ -29,4 +29,5 @@ cdef void list_push(Node* node, List* lst):
     node[0].active = True
     lst[0].size+=1
 
-cdef void list_r
+cdef void list_remove_node(Node* node, List* lst):
+    if n
