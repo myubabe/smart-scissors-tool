@@ -30,4 +30,6 @@ cdef void list_push(Node* node, List* lst):
     lst[0].size+=1
 
 cdef void list_remove_node(Node* node, List* lst):
-    if n
+    if node == lst[0].tail:
+        if node[0].prev != NULL:
+      
