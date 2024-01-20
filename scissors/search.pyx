@@ -37,4 +37,7 @@ cdef void list_remove_node(Node* node, List* lst):
         else:
             lst[0].tail = NULL
 
-    elif node[0].prev == NUL
+    elif node[0].prev == NULL:
+        node[0].next[0].prev = NULL
+    else:
+  
