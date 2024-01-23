@@ -43,4 +43,7 @@ cdef void list_remove_node(Node* node, List* lst):
         node[0].prev[0].next = node[0].next
         node[0].next[0].prev = node[0].prev
 
-    node[0].n
+    node[0].next = NULL
+    node[0].prev = NULL
+
+    no
