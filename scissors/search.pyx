@@ -50,4 +50,5 @@ cdef void list_remove_node(Node* node, List* lst):
     lst[0].size-=1
 
 cdef Node * list_pop(List* lst):
-    cdef Node* tail = lst
+    cdef Node* tail = lst[0].tail
+    list_remove_node(tail, lst)
