@@ -52,3 +52,6 @@ cdef void list_remove_node(Node* node, List* lst):
 cdef Node * list_pop(List* lst):
     cdef Node* tail = lst[0].tail
     list_remove_node(tail, lst)
+    return tail
+
+cdef Node* get_node_ptr(
