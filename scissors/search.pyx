@@ -54,4 +54,5 @@ cdef Node * list_pop(List* lst):
     list_remove_node(tail, lst)
     return tail
 
-cdef Node* get_node_ptr(
+cdef Node* get_node_ptr(int x, int y, vector[vector[Node]]* storage):
+    cdef Nod
