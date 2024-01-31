@@ -57,3 +57,7 @@ cdef Node * list_pop(List* lst):
 cdef Node* get_node_ptr(int x, int y, vector[vector[Node]]* storage):
     cdef Node* node = &storage[0][x][y]
     node[0].x = x
+    node[0].y = y
+    return node
+
+cdef void set_cost(Node
