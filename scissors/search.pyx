@@ -64,4 +64,5 @@ cdef void set_cost(Node* n, long cost):
     n[0].total_cost = cost
     n[0].has_infinite_cost = False
 
-cdef vector[vector[Node]]* make_node_storage(int w, in
+cdef vector[vector[Node]]* make_node_storage(int w, int h):
+    return new vector[vector[Node]](w, vect
