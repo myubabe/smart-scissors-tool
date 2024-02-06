@@ -70,4 +70,5 @@ cdef vector[vector[Node]]* make_node_storage(int w, int h):
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-@cython.cdivision(True
+@cython.cdivision(True)
+def search(long [:, :, :, :]static_cost, long [:, :, :, :
