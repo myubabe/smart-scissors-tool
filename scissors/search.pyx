@@ -68,4 +68,6 @@ cdef vector[vector[Node]]* make_node_storage(int w, int h):
     return new vector[vector[Node]](w, vector[Node](h, Node(0, 0, False, False, 0, True, NULL, NULL)))
 
 
-@cython.boundscheck(False
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True
