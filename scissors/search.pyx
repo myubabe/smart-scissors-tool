@@ -74,4 +74,5 @@ cdef vector[vector[Node]]* make_node_storage(int w, int h):
 def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             int w, int h, int seed_x, int seed_y, int maximum_local_cost):
 
-    # keeps information abo
+    # keeps information about all pixels
+    cdef vector[vector[Node]]* raw_storage =
