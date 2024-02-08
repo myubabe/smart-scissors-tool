@@ -72,4 +72,6 @@ cdef vector[vector[Node]]* make_node_storage(int w, int h):
 @cython.wraparound(False)
 @cython.cdivision(True)
 def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
-            int w, int h, int seed_x, int seed_y, int maxi
+            int w, int h, int seed_x, int seed_y, int maximum_local_cost):
+
+    # keeps information abo
