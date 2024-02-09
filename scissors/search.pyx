@@ -76,4 +76,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
     # keeps information about all pixels
     cdef vector[vector[Node]]* raw_storage = make_node_storage(w, h)
-    cdef Node* seed_
+    cdef Node* seed_point = get_node_ptr(seed_x, seed_y, raw_storage)
+
