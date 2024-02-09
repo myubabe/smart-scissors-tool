@@ -80,4 +80,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
     # seed has 0 cost
     set_cost(seed_point, 0)
-    # crea
+    # create active list
+    cdef vector[List]* active_
