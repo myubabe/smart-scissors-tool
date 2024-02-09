@@ -78,3 +78,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef vector[vector[Node]]* raw_storage = make_node_storage(w, h)
     cdef Node* seed_point = get_node_ptr(seed_x, seed_y, raw_storage)
 
+    # seed has 0 cost
+    set_cost(seed_point, 0)
+    # crea
