@@ -84,4 +84,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef vector[List]* active_list = new vector[List](maximum_local_cost, List(0, NULL))
     # put seed point to the first bucket
     cdef int list_index = 0
-    list_push(se
+    list_push(seed_point, &active_list[0][list_index])
+
+ 
