@@ -86,4 +86,4 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef int list_index = 0
     list_push(seed_point, &active_list[0][list_index])
 
- 
+    # next node x and next node y, current x, cu
