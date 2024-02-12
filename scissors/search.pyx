@@ -87,4 +87,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     list_push(seed_point, &active_list[0][list_index])
 
     # next node x and next node y, current x, current y
-    cdef long [:, :, :] next_node_map = np.zeros((2
+    cdef long [:, :, :] next_node_map = np.zeros((2, w, h), dtype=np.int)
+
+    # 
