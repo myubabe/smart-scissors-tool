@@ -89,4 +89,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     # next node x and next node y, current x, current y
     cdef long [:, :, :] next_node_map = np.zeros((2, w, h), dtype=np.int)
 
-    # 
+    # tracks the number of active buckets
+    cdef int nu
