@@ -99,3 +99,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef Node* q = NULL
 
     cdef int p_x = 0
+    cdef int p_y = 0
+
+    cdef int
