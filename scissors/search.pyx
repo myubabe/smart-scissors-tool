@@ -95,4 +95,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef long tmp_cost = 0
     cdef long last_expanded_cost = 0
 
-    cdef Node* p = N
+    cdef Node* p = NULL
+    cdef Node* q = NULL
+
+    cdef int p_x = 0
