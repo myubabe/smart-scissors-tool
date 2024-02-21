@@ -101,4 +101,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef int p_x = 0
     cdef int p_y = 0
 
-    cdef int
+    cdef int q_x = 0
+    cdef int q_y = 0
+
+    # shift in
