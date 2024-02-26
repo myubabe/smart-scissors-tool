@@ -105,4 +105,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef int q_y = 0
 
     # shift indices of neighbors
-    cdef int x_shift = 0, y_shift
+    cdef int x_shift = 0, y_shift = 0
+    # [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0,
