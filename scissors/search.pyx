@@ -110,4 +110,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef vector[int] y_shifts = [-1, -1, -1, 0, 0, 1, 1, 1]
     cdef vector[int] x_shifts = [-1, 0, 1, -1, 1, -1, 0, 1]
 
-    #
+    # while there are unexpanded points
+  
