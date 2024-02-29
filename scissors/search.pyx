@@ -111,4 +111,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     cdef vector[int] x_shifts = [-1, 0, 1, -1, 1, -1, 0, 1]
 
     # while there are unexpanded points
-    while num_of_active_lists !=
+    while num_of_active_lists != 0:
+        last_expanded_cost -= 1
+
+  
