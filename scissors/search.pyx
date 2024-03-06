@@ -116,3 +116,4 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
         while True:
             last_expanded_cost += 1
+            list_index = last_expanded_
