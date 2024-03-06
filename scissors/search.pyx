@@ -114,4 +114,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
     while num_of_active_lists != 0:
         last_expanded_cost -= 1
 
-  
+        while True:
+            last_expanded_cost += 1
