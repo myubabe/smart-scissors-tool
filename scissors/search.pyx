@@ -120,3 +120,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
             if active_list[0][list_index].size != 0:
                 break
+
+        p = list_pop(&active_list[0][list_index
