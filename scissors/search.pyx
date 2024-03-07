@@ -118,4 +118,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             last_expanded_cost += 1
             list_index = last_expanded_cost % maximum_local_cost
 
-            if active_list
+            if active_list[0][list_index].size != 0:
+                break
