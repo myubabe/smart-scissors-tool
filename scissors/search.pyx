@@ -124,4 +124,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
         p = list_pop(&active_list[0][list_index])
         p_x = p[0].x
         p_y = p[0].y
-   
+        #p = get_node_ptr(p_x, p_y, raw_storage)
+
+  
