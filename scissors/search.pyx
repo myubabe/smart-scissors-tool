@@ -126,4 +126,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
         p_y = p[0].y
         #p = get_node_ptr(p_x, p_y, raw_storage)
 
-  
+        # mark 'p' as expanded
+       
