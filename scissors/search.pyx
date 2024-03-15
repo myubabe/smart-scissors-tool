@@ -139,4 +139,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             x_shift = x_shifts[i]
             y_shift = y_shifts[i]
 
-  
+            if p_y == 0 and y_shift == -1:
+        
