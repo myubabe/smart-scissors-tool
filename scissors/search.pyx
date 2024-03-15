@@ -136,4 +136,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
         # for each neighbour
         for i in range(8):
-    
+            x_shift = x_shifts[i]
+            y_shift = y_shifts[i]
+
+  
