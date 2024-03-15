@@ -131,4 +131,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
         last_expanded_cost = p[0].total_cost
 
         # reduce number of active buckets
-        if active_list[0][list_inde
+        if active_list[0][list_index].size == 0:
+            num_of_active_lists -= 1
+
+      
