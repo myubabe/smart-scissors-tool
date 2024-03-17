@@ -141,4 +141,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
             if p_y == 0 and y_shift == -1:
                 continue
-            elif p_y == 
+            elif p_y == h - 1 and y_shift == 1:
+                continue
+
+ 
