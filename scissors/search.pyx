@@ -150,4 +150,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 continue
 
             q_x = p_x + x_shift
-            q_y = p
+            q_y = p_y + y_shift
+            q = get_node_ptr(q_x
