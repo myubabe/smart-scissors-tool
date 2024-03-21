@@ -155,4 +155,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
             # such that not expanded
             if q[0].expanded:
- 
+                continue
+
+            # compute cumul
