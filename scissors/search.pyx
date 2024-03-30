@@ -157,4 +157,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             if q[0].expanded:
                 continue
 
-            # compute cumul
+            # compute cumulative cost to neighbour
+         
