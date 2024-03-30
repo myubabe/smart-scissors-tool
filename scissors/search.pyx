@@ -158,4 +158,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 continue
 
             # compute cumulative cost to neighbour
-         
+            # TODO fix axes order
+            tmp
