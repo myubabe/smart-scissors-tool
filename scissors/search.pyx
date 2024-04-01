@@ -160,4 +160,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             # compute cumulative cost to neighbour
             # TODO fix axes order
             tmp_cost = p[0].total_cost + static_cost[y_shift + 1, x_shift + 1, p_y, p_x]
-            tmp_cost += dyn
+            tmp_cost += dynamic_cost[y_shift + 1, x_shift + 1, p_y, p_x]
+
+   
