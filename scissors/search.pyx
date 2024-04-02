@@ -162,4 +162,4 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             tmp_cost = p[0].total_cost + static_cost[y_shift + 1, x_shift + 1, p_y, p_x]
             tmp_cost += dynamic_cost[y_shift + 1, x_shift + 1, p_y, p_x]
 
-   
+            if q[0].active and (q[0].h
