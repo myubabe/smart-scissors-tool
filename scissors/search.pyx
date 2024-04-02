@@ -163,4 +163,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             tmp_cost += dynamic_cost[y_shift + 1, x_shift + 1, p_y, p_x]
 
             if q[0].active and (q[0].has_infinite_cost or tmp_cost < q[0].total_cost):
-        
+                # remove higher cost neighbor
+       
