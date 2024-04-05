@@ -167,4 +167,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 list_index = q[0].total_cost % maximum_local_cost
                 list_remove_node(q, &active_list[0][list_index])
 
-                 # reduce 
+                 # reduce number of active buckets
+                if active_lis
