@@ -168,4 +168,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 list_remove_node(q, &active_list[0][list_index])
 
                  # reduce number of active buckets
-                if active_lis
+                if active_list[0][list_index].size == 0:
+                    n
