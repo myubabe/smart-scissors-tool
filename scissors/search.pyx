@@ -171,4 +171,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 if active_list[0][list_index].size == 0:
                     num_of_active_lists -= 1
 
-            # i
+            # if neighbour not in list
+            if not q.activ
