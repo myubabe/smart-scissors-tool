@@ -172,4 +172,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                     num_of_active_lists -= 1
 
             # if neighbour not in list
-            if not q.activ
+            if not q.active:
+                # assign neighbor’s cumulativ
