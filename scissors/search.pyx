@@ -175,4 +175,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
             if not q.active:
                 # assign neighbor’s cumulative cost
                 set_cost(q, tmp_cost)
-  
+                # place node to the active list
+            
