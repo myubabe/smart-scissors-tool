@@ -173,4 +173,6 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
             # if neighbour not in list
             if not q.active:
-                # assign neighbor’s cumulativ
+                # assign neighbor’s cumulative cost
+                set_cost(q, tmp_cost)
+  
