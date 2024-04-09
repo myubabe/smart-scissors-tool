@@ -176,4 +176,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 # assign neighbor’s cumulative cost
                 set_cost(q, tmp_cost)
                 # place node to the active list
-                list_index = q[0].total_cost % maximum_local_c
+                list_index = q[0].total_cost % maximum_local_cost
+                list_push(q, &active_list[0][l
