@@ -177,4 +177,7 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 set_cost(q, tmp_cost)
                 # place node to the active list
                 list_index = q[0].total_cost % maximum_local_cost
-                list_push(q, &active_list[0][l
+                list_push(q, &active_list[0][list_index])
+
+                # set back pointer
+ 
