@@ -180,4 +180,5 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 list_push(q, &active_list[0][list_index])
 
                 # set back pointer
- 
+                next_node_map[0, q_x, q_y] = p_x
+      
