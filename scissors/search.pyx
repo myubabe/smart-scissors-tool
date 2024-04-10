@@ -181,4 +181,4 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
                 # set back pointer
                 next_node_map[0, q_x, q_y] = p_x
-      
+                next_node_map[1, q_x, q_y] = p_y
