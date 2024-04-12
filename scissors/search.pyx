@@ -184,4 +184,4 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
                 next_node_map[1, q_x, q_y] = p_y
 
                 # increase number of active buckets
-     
+                if active_list[0][list_index].size ==
