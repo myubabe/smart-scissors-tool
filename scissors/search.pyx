@@ -191,4 +191,4 @@ def search(long [:, :, :, :]static_cost, long [:, :, :, :] dynamic_cost,
 
     del raw_storage
     del active_list
-    retur
+    return next_node_map
