@@ -9,4 +9,6 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
     if isinstance(filter_size, int):
         filter_size = np.array((filter_size,) * len(spatial))
 
-    unfol
+    unfolded = np.zeros((feature_size, *filter_size, *spatial))
+
+    
