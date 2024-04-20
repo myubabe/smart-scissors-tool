@@ -12,4 +12,5 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
     unfolded = np.zeros((feature_size, *filter_size, *spatial))
 
     def get_spans(shift):
-        if shift 
+        if shift > 0:
+            source_span = slice(0, 
