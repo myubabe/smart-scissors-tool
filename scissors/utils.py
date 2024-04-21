@@ -16,4 +16,5 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
             source_span = slice(0, -shift)
             shifted_span = slice(shift, None)
         elif shift < 0:
-            so
+            source_span = slice(-shift, None)
+            sh
