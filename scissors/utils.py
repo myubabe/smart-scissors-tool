@@ -29,4 +29,5 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
         for start_coord, stop_coord in zip(start_span_coord, stop_span_coord)
     ]
 
-    for shifts 
+    for shifts in product(*shift_boundaries):
+        cur_source_
