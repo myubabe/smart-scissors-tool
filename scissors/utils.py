@@ -30,4 +30,5 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
     ]
 
     for shifts in product(*shift_boundaries):
-        cur_source_span, cur_shifted_span = zip(*map(get_spans, shift
+        cur_source_span, cur_shifted_span = zip(*map(get_spans, shifts))
+        current_slice = (...,
