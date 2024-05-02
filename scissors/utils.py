@@ -37,4 +37,5 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
     return unfolded
 
 
-def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array] = 3, feature_s
+def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array] = 3, feature_size: int = 2):
+    if isinstance(filter_si
