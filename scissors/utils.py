@@ -34,4 +34,7 @@ def unfold(x: np.array, filter_size: Union[int, np.array] = 3):
         current_slice = (...,) + tuple(shifts + start_span_coord) + cur_source_span
         unfolded[current_slice] = x[(...,) + cur_shifted_span]
 
-    return
+    return unfolded
+
+
+def create_spatial_feats(shape: Sequ
