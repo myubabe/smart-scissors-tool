@@ -44,4 +44,5 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
     start_span_coord = filter_size // 2
     stop_span_coord = filter_size - start_span_coord - 1
     shift_boundaries = [
-     
+        np.arange(-start_coord, stop_coord + 1)
+ 
