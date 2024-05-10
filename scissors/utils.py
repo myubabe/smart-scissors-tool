@@ -48,4 +48,5 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
         for start_coord, stop_coord in zip(start_span_coord, stop_span_coord)
     ]
 
-    holder = 
+    holder = np.zeros((feature_size,) + tuple(filter_size) + shape)
+    for shi
