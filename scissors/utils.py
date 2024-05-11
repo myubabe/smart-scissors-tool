@@ -50,4 +50,5 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
 
     holder = np.zeros((feature_size,) + tuple(filter_size) + shape)
     for shift in product(*shift_boundaries):
-        cu
+        current_slice = shift + start_span_coord
+        shift
