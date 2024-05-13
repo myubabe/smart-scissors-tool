@@ -53,4 +53,5 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
         current_slice = shift + start_span_coord
         shift = np.reshape(shift, (feature_size,) + (1,) * 2 * len(filter_size))
 
-        slices = (slice(None)
+        slices = (slice(None),) + tuple([slice(x, x + 1) for x in current_slice])
+        hold
