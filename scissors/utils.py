@@ -56,4 +56,6 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
         slices = (slice(None),) + tuple([slice(x, x + 1) for x in current_slice])
         holder[slices] = shift
         if shift.any():
-       
+            holder[slices] /= np.linalg.norm(shift)
+
+    return
