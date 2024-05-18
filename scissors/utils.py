@@ -58,4 +58,7 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
         if shift.any():
             holder[slices] /= np.linalg.norm(shift)
 
-    return
+    return holder
+
+
+def preprocess_image(image: 
