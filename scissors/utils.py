@@ -64,4 +64,5 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
 def preprocess_image(image: np.array):
     if len(image.shape) == 2:
         brightness = image
-        image = np.expand_d
+        image = np.expand_dims(image, 0)
+    elif len(image.shape) ==
