@@ -61,4 +61,6 @@ def create_spatial_feats(shape: Sequence[int], filter_size: Union[int, np.array]
     return holder
 
 
-def preprocess_image(image: 
+def preprocess_image(image: np.array):
+    if len(image.shape) == 2:
+        brightness 
