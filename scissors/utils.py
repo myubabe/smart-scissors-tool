@@ -66,4 +66,4 @@ def preprocess_image(image: np.array):
         brightness = image
         image = np.expand_dims(image, 0)
     elif len(image.shape) == 3 and image.shape[2] == 3:
-        brightness
+        brightness = skimage.color.rgb2hsv(image)[:, :, 
