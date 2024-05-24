@@ -67,4 +67,6 @@ def preprocess_image(image: np.array):
         image = np.expand_dims(image, 0)
     elif len(image.shape) == 3 and image.shape[2] == 3:
         brightness = skimage.color.rgb2hsv(image)[:, :, 2]
-        image = np.transpose(image, (2, 0, 1
+        image = np.transpose(image, (2, 0, 1))
+    else:
+        raise Runtim
