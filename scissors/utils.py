@@ -73,4 +73,6 @@ def preprocess_image(image: np.array):
     return image, brightness
 
 
-def flatte
+def flatten_first_dims(x, n_dims=2):
+    shape = x.shape
+   
