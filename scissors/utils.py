@@ -69,4 +69,8 @@ def preprocess_image(image: np.array):
         brightness = skimage.color.rgb2hsv(image)[:, :, 2]
         image = np.transpose(image, (2, 0, 1))
     else:
-        raise Runtim
+        raise RuntimeError
+    return image, brightness
+
+
+def flatte
