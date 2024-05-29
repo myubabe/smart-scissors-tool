@@ -78,4 +78,5 @@ def flatten_first_dims(x, n_dims=2):
     return np.reshape(x, ((np.product(shape[:n_dims]),) + shape[n_dims:]))
 
 
-def quadratic_kernel(x
+def quadratic_kernel(x, size):
+    return 1 - (x / size) ** 2
