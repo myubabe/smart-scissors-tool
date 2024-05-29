@@ -75,4 +75,4 @@ def preprocess_image(image: np.array):
 
 def flatten_first_dims(x, n_dims=2):
     shape = x.shape
-   
+    return np.reshape(x, ((np.product(shape[:
